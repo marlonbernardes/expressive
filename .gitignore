@@ -34,3 +34,6 @@ coverage
 
 # Vscode configs
 .vscode
+
+node_modules/
+dist/
