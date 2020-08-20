@@ -9,6 +9,8 @@
     "typeRoots": ["./node_modules/@types", "./types"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "noImplicitAny": true
   }
 }
