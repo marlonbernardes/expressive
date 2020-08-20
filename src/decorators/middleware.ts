@@ -1,12 +1,14 @@
+import { Middleware, ErrorMiddleware, MethodMetadata, ControllerMetadata } from './types';
 import {
-  Middleware,
-  ErrorMiddleware,
-  MethodMetadata,
-  ControllerMetadata,
-} from './types';
-import { getMethodMetadata, setMethodMetadata, getControllerMetadata, setControllerMetadata } from '../utils/reflection';
+  getMethodMetadata,
+  setMethodMetadata,
+  getControllerMetadata,
+  setControllerMetadata,
+} from '../utils/reflection';
 
-export function Middleware(middlewares: Middleware[]): MethodDecorator & PropertyDecorator & ClassDecorator {
+export function Middleware(
+  middlewares: Middleware[]
+): MethodDecorator & PropertyDecorator & ClassDecorator {
   return (target: Object | Function, methodName?: string | symbol): void => {
     // if methodName is defined...
     if (methodName) {
