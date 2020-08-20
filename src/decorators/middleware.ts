@@ -1,56 +1,41 @@
 import {
   Middleware,
   ErrorMiddleware,
-  RouteMetadata,
   MethodMetadata,
   ControllerMetadata,
 } from './types';
-import { setRouteMetadata, getRouteMetadata } from '../utils/reflection';
+import { getMethodMetadata, setMethodMetadata, getControllerMetadata, setControllerMetadata } from '../utils/reflection';
 
-// @TODO combine Middleware/ClassMiddleware ahd ErrorMiddleware/ClassErrorMiddleware
-export function Middleware(middleware: Middleware[]): MethodDecorator & PropertyDecorator {
-  return (target: Object, propertyKey: string | symbol): void => {
-    console.log('non-class middleware being added to ', target.constructor, typeof target);
-    addMiddlewareToMetadata(middleware, target.constructor, propertyKey);
+export function Middleware(middlewares: Middleware[]): MethodDecorator & PropertyDecorator & ClassDecorator {
+  return (target: Object | Function, methodName?: string | symbol): void => {
+    // if methodName is defined...
+    if (methodName) {
+      // ... it means this decorator is being applied to a property or method
+      const metadata: MethodMetadata = getMethodMetadata(target.constructor, methodName);
+      metadata.middlewares = [...middlewares, ...metadata.middlewares];
+      setMethodMetadata(target.constructor, methodName, metadata);
+    } else if (typeof target === 'function') {
+      const metadata: ControllerMetadata = getControllerMetadata(target);
+      metadata.middlewares = [...middlewares, ...metadata.middlewares];
+      setControllerMetadata(target, metadata);
+    }
   };
 }
 
 export function ErrorMiddleware(
-  errorMiddleware: ErrorMiddleware[]
+  errorMiddlewares: ErrorMiddleware[]
 ): MethodDecorator & PropertyDecorator {
-  return (target: Object, propertyKey: string | symbol): void => {
-    addErrorMiddlewareToMetadata(errorMiddleware, target.constructor, propertyKey);
+  return (target: Object | Function, methodName?: string | symbol): void => {
+    // if methodName is defined...
+    if (methodName) {
+      // ... it means this decorator is being applied to a property or method
+      const metadata: MethodMetadata = getMethodMetadata(target.constructor, methodName);
+      metadata.errorMiddlewares = [...errorMiddlewares, ...metadata.errorMiddlewares];
+      setMethodMetadata(target.constructor, methodName, metadata);
+    } else if (typeof target === 'function') {
+      const metadata: ControllerMetadata = getControllerMetadata(target);
+      metadata.errorMiddlewares = [...errorMiddlewares, ...metadata.errorMiddlewares];
+      setControllerMetadata(target, metadata);
+    }
   };
-}
-
-export function ClassMiddleware(middleware: Middleware[]): ClassDecorator {
-  return <T extends Function>(target: T): void => {
-    addMiddlewareToMetadata(middleware, target);
-  };
-}
-
-export function ClassErrorMiddleware(errorMiddleware: ErrorMiddleware[]): ClassDecorator {
-  return <T extends Function>(target: T): void => {
-    addErrorMiddlewareToMetadata(errorMiddleware, target);
-  };
-}
-
-function addMiddlewareToMetadata(
-  middlewares: Middleware[],
-  target: Object,
-  methodName?: string | symbol
-): void {
-  const metadata: RouteMetadata = getRouteMetadata(target, methodName);
-  metadata.middlewares = [...middlewares, ...metadata.middlewares];
-  setRouteMetadata(metadata, target, methodName);
-}
-
-function addErrorMiddlewareToMetadata(
-  errorMiddlewares: ErrorMiddleware[],
-  target: Object,
-  methodName?: string | symbol
-): void {
-  const metadata: RouteMetadata = getRouteMetadata(target, methodName);
-  metadata.errorMiddlewares = [...errorMiddlewares, ...(metadata.errorMiddlewares || [])];
-  setRouteMetadata(metadata, target, methodName);
 }
