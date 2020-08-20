@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { registerControllers, Controller, Get, Post } from '../../src/';
+import { register, Controller, Get, Post } from '../../src/';
 import request from 'supertest';
 
 describe('foo', () => {
@@ -14,7 +14,7 @@ describe('foo', () => {
       }
     }
 
-    registerControllers(app, [new Foo()], []);
+    register(app, [new Foo()]);
 
     await request(app).get('/foo/abc').expect(200, 'foo');
   });
@@ -28,7 +28,7 @@ describe('foo', () => {
         return res.send(req.params);
       }
     }
-    registerControllers(app, [new Foo()], []);
+    register(app, [new Foo()]);
 
     await request(app).get('/foo/123').expect(200, { id: '123' });
   });
