@@ -1,10 +1,10 @@
-import { RequestHandler, ErrorRequestHandler, RouterOptions } from 'express';
-import { PathParams } from 'express-serve-static-core';
+import { RouterOptions } from 'express';
+import { PathParams, RequestHandler, ErrorRequestHandler } from 'express-serve-static-core';
 
 export type Controller = any;
 export type Middleware = RequestHandler;
 export type ErrorMiddleware = ErrorRequestHandler;
-export type WrapperFunction = (methodOrProperty?: string) => RequestHandler;
+export type WrapperFunction = (handler?: RequestHandler) => RequestHandler;
 export interface Type<T> extends Function {
   new (...args: unknown[]): T;
 }

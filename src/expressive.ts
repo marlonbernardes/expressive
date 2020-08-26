@@ -18,7 +18,7 @@ type CreateOptions = {
   routerFactory: (opts?: RouterOptions) => IRouter;
 };
 
-type CreateAndRegisterOptions = CreateOptions & {
+type BootstrapOptions = CreateOptions & {
   globalMiddlewares: RequestHandler[];
 };
 
@@ -38,7 +38,7 @@ export function create(
 export function bootstrap(
   app: Application,
   controllers: Controller[],
-  options?: Partial<CreateAndRegisterOptions>
+  options?: Partial<BootstrapOptions>
 ): void {
   const defaults = { globalMiddlewares: [], routerFactory: Router };
   const config = { ...defaults, ...options };
@@ -76,21 +76,25 @@ function registerMethod(router: IRouter, controller: Controller, member: string)
     };
 
     if (controllerMeta.wrapper) {
+      // @ts-ignore FIX ME
       callback = controllerMeta.wrapper(callback);
     }
 
     if (methodMeta.wrapper) {
+      // @ts-ignore FIX ME
       callback = methodMeta.wrapper(callback);
     }
 
     if (methodMeta.errorMiddlewares) {
       methodMeta.errorMiddlewares.forEach((errorMiddleware: ErrorRequestHandler) => {
+        // @ts-ignore FIX ME
         callback = wrapErrorMiddleware(errorMiddleware, callback);
       });
     }
 
     methodMeta.routes.forEach((route: Route) => {
       const { verb, path }: Route = route;
+      // @ts-ignore FIX ME
       router[verb](path, methodMeta.middlewares, callback);
     });
   }
@@ -100,11 +104,11 @@ function wrapErrorMiddleware(
   errorMiddleware: ErrorRequestHandler,
   requestHandler: RequestHandler
 ): RequestHandler {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req: Request, res: Response, next?: NextFunction): void => {
     try {
       requestHandler(req, res, next);
     } catch (error) {
-      errorMiddleware(error, req, res, next);
+      errorMiddleware(error, req, res, next!);
     }
   };
 }
