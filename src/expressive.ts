@@ -1,16 +1,14 @@
 import 'reflect-metadata';
-import { PathParams } from 'express-serve-static-core';
 import {
   Application,
-  IRouter,
-  NextFunction,
-  Request,
+  PathParams,
   RequestHandler,
   ErrorRequestHandler,
+  Request,
   Response,
-  Router,
-  RouterOptions,
-} from 'express';
+  NextFunction,
+} from 'express-serve-static-core';
+import { IRouter, Router, RouterOptions } from 'express';
 import { Controller, ControllerMetadata, Route, MethodMetadata } from './types';
 import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
 
