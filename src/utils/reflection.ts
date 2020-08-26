@@ -1,9 +1,9 @@
-import { MethodMetadata, ControllerMetadata } from '../decorators/types';
+import { MethodMetadata, ControllerMetadata } from '../types';
 
 const CONTROLLER_METADATA_KEY = Symbol('expressive:controller-metadata');
 
-export const getMethodMetadata = (
-  constructor: Function,
+export const getMethodMetadata = <T extends Function>(
+  constructor: T,
   methodName: string | symbol
 ): MethodMetadata => {
   const defaultProps = { middlewares: [], errorMiddlewares: [], routes: [] };
@@ -11,15 +11,15 @@ export const getMethodMetadata = (
   return metadata ?? defaultProps;
 };
 
-export const setMethodMetadata = (
-  constructor: Function,
+export const setMethodMetadata = <T extends Function>(
+  constructor: T,
   methodName: string | symbol,
   value: MethodMetadata
-) => {
+): void => {
   Reflect.defineMetadata(methodName, value, constructor);
 };
 
-export const getControllerMetadata = (constructor: Function): ControllerMetadata => {
+export const getControllerMetadata = <T extends Function>(constructor: T): ControllerMetadata => {
   const defaultProps = { middlewares: [], errorMiddlewares: [], basePath: '' };
   const metadata: ControllerMetadata | undefined = Reflect.getMetadata(
     CONTROLLER_METADATA_KEY,
@@ -28,6 +28,9 @@ export const getControllerMetadata = (constructor: Function): ControllerMetadata
   return metadata ?? defaultProps;
 };
 
-export const setControllerMetadata = (constructor: Function, value: ControllerMetadata) => {
+export const setControllerMetadata = <T extends Function>(
+  constructor: T,
+  value: ControllerMetadata
+): void => {
   Reflect.defineMetadata(CONTROLLER_METADATA_KEY, value, constructor);
 };

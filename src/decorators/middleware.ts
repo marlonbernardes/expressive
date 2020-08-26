@@ -1,4 +1,4 @@
-import { Middleware, ErrorMiddleware, MethodMetadata, ControllerMetadata } from './types';
+import { Middleware, ErrorMiddleware, MethodMetadata, ControllerMetadata } from '../types';
 import {
   getMethodMetadata,
   setMethodMetadata,
@@ -9,7 +9,7 @@ import {
 export function Middleware(
   middlewares: Middleware[]
 ): MethodDecorator & PropertyDecorator & ClassDecorator {
-  return (target: Object | Function, methodName?: string | symbol): void => {
+  return <T extends Function>(target: Object | T, methodName?: string | symbol): void => {
     // if methodName is defined...
     if (methodName) {
       // ... it means this decorator is being applied to a property or method

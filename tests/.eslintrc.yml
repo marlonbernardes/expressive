@@ -1,0 +1,4 @@
+
+rules:
+  "node/no-unpublished-import": off
+  "node/no-missing-require": off

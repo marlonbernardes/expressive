@@ -4,7 +4,10 @@ import { PathParams } from 'express-serve-static-core';
 export type Controller = any;
 export type Middleware = RequestHandler;
 export type ErrorMiddleware = ErrorRequestHandler;
-export type WrapperFunction = (methodOrProperty: any) => RequestHandler;
+export type WrapperFunction = (methodOrProperty?: string) => RequestHandler;
+export interface Type<T> extends Function {
+  new (...args: unknown[]): T;
+}
 
 type RouteMetadata = {
   errorMiddlewares: ErrorMiddleware[];

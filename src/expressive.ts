@@ -11,7 +11,7 @@ import {
   Router,
   RouterOptions,
 } from 'express';
-import { Controller, ControllerMetadata, Route, MethodMetadata } from './decorators/types';
+import { Controller, ControllerMetadata, Route, MethodMetadata } from './types';
 import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
 
 type CreateOptions = {
@@ -35,11 +35,11 @@ export function create(
   return controllers.map((ctrl) => createRouter(ctrl, { ...defaults, ...options }));
 }
 
-export function register(
+export function bootstrap(
   app: Application,
   controllers: Controller[],
   options?: Partial<CreateAndRegisterOptions>
-) {
+): void {
   const defaults = { globalMiddlewares: [], routerFactory: Router };
   const config = { ...defaults, ...options };
   const routers: RouterConfig[] = create(controllers, config);
@@ -66,12 +66,12 @@ function createRouter(controller: Controller, options: CreateOptions): RouterCon
   return { basePath: controllerMetadata.basePath, router };
 }
 
-function registerMethod(router: IRouter, controller: Controller, member: string) {
+function registerMethod(router: IRouter, controller: Controller, member: string): void {
   const methodMeta: MethodMetadata = getMethodMetadata(controller.constructor, member);
   const controllerMeta: ControllerMetadata = getControllerMetadata(controller.constructor);
 
   if (methodMeta.routes.length > 0) {
-    let callback = (req: Request, res: Response, next: NextFunction) => {
+    let callback = (req: Request, res: Response, next: NextFunction): RequestHandler => {
       return controller[member](req, res, next);
     };
 

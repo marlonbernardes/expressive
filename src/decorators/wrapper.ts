@@ -1,4 +1,4 @@
-import { WrapperFunction, MethodMetadata, ControllerMetadata } from './types';
+import { WrapperFunction, MethodMetadata, ControllerMetadata } from '../types';
 import {
   getControllerMetadata,
   getMethodMetadata,
@@ -9,7 +9,7 @@ import {
 export function Wrapper(
   wrapper: WrapperFunction
 ): MethodDecorator & PropertyDecorator & ClassDecorator {
-  return (target: Object | Function, methodName?: string | symbol): void => {
+  return (target: InstanceType<any>, methodName?: string | symbol): void => {
     if (methodName) {
       const metadata: MethodMetadata = getMethodMetadata(target.constructor, methodName);
       metadata.wrapper = wrapper;

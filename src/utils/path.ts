@@ -1,6 +1,6 @@
 import { PathParams } from 'express-serve-static-core';
 
-export function normalisePath<T extends PathParams>(path?: T) {
+export function normalisePath<T extends PathParams>(path?: T): PathParams {
   if (!path) {
     return '';
   } else if (path instanceof RegExp) {

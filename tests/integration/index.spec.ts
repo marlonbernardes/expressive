@@ -1,6 +1,7 @@
-import express, { Request, Response } from 'express';
-import { register, Controller, Get, Post } from '../../src/';
+import express, { RequestHandler } from 'express';
+import { bootstrap, Controller, Get } from '../../src/';
 import request from 'supertest';
+import { Response, Request } from 'express-serve-static-core';
 
 describe('foo', () => {
   it('by path', async () => {
@@ -9,12 +10,12 @@ describe('foo', () => {
     @Controller('/foo')
     class Foo {
       @Get('/abc')
-      public test(req: Request, res: Response) {
+      public test(req: Request, res: Response): RequestHandler {
         return res.send('foo');
       }
     }
 
-    register(app, [new Foo()]);
+    bootstrap(app, [new Foo()]);
 
     await request(app).get('/foo/abc').expect(200, 'foo');
   });
@@ -24,11 +25,11 @@ describe('foo', () => {
     @Controller('/foo')
     class Foo {
       @Get('/:id')
-      public test2(req: Request, res: Response) {
-        return res.send(req.params);
+      public test2(req: Request, res: Response): any {
+        res.send(req.params);
       }
     }
-    register(app, [new Foo()]);
+    bootstrap(app, [new Foo()]);
 
     await request(app).get('/foo/123').expect(200, { id: '123' });
   });
