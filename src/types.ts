@@ -1,5 +1,5 @@
-import { RouterOptions } from 'express';
-import { PathParams, RequestHandler, ErrorRequestHandler } from 'express-serve-static-core';
+import { RouterOptions, IRouter } from 'express';
+import { PathParams, RequestHandler, ErrorRequestHandler, IRouterMatcher, IRouterHandler } from 'express-serve-static-core';
 
 export type Controller = any;
 export type Middleware = RequestHandler;
@@ -27,6 +27,10 @@ export type MethodMetadata = RouteMetadata & {
 export interface Route {
   verb: RoutingMethod;
   path: PathParams;
+}
+
+export type ExpressRouter = IRouter & {
+  [verb in RoutingMethod]: IRouterMatcher<IRouter>;
 }
 
 // Routing methods supported by express:

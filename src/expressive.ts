@@ -8,12 +8,12 @@ import {
   Response,
   NextFunction,
 } from 'express-serve-static-core';
-import { IRouter, Router, RouterOptions } from 'express';
-import { Controller, ControllerMetadata, Route, MethodMetadata } from './types';
+import { RouterOptions, Router } from 'express';
+import { Controller, ControllerMetadata, Route, ExpressRouter, MethodMetadata } from './types';
 import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
 
 type CreateOptions = {
-  routerFactory: (opts?: RouterOptions) => IRouter;
+  routerFactory: (opts?: RouterOptions) => Router;
 };
 
 type BootstrapOptions = CreateOptions & {
@@ -22,7 +22,7 @@ type BootstrapOptions = CreateOptions & {
 
 type RouterConfig = {
   basePath: PathParams;
-  router: IRouter;
+  router: Router;
 };
 
 export function create(
@@ -58,42 +58,40 @@ function createRouter(controller: Controller, options: CreateOptions): RouterCon
   ];
 
   controllerMetadata.middlewares.forEach((m) => router.use(m));
-  members.forEach((method) => registerMethod(router, controller, method));
+  members.forEach((method) => registerMethod(router as ExpressRouter, controller, method));
 
   controllerMetadata.errorMiddlewares.forEach((m) => router.use(m));
   return { basePath: controllerMetadata.basePath, router };
 }
 
-function registerMethod(router: IRouter, controller: Controller, member: string): void {
+function registerMethod(router: ExpressRouter, controller: Controller, member: string): void {
   const methodMeta: MethodMetadata = getMethodMetadata(controller.constructor, member);
   const controllerMeta: ControllerMetadata = getControllerMetadata(controller.constructor);
 
   if (methodMeta.routes.length > 0) {
-    let callback = (req: Request, res: Response, next: NextFunction): RequestHandler => {
+    let callback = (req: Request, res: Response, next?: NextFunction): RequestHandler => {
       return controller[member](req, res, next);
     };
 
+    // TODO: Add support for global wrapper
+
     if (controllerMeta.wrapper) {
-      // @ts-ignore FIX ME
       callback = controllerMeta.wrapper(callback);
     }
 
     if (methodMeta.wrapper) {
-      // @ts-ignore FIX ME
       callback = methodMeta.wrapper(callback);
     }
 
     if (methodMeta.errorMiddlewares) {
       methodMeta.errorMiddlewares.forEach((errorMiddleware: ErrorRequestHandler) => {
-        // @ts-ignore FIX ME
         callback = wrapErrorMiddleware(errorMiddleware, callback);
       });
     }
 
     methodMeta.routes.forEach((route: Route) => {
       const { verb, path }: Route = route;
-      // @ts-ignore FIX ME
-      router[verb](path, methodMeta.middlewares, callback);
+      router[verb](path, ...methodMeta.middlewares, callback);
     });
   }
 }
