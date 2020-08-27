@@ -1,19 +1,10 @@
 import express from 'express';
 import request from 'supertest';
-import {
-  bootstrap,
-  Get,
-  Controller,
-  Post,
-  Head,
-  Put,
-  Delete,
-  Options,
-  Patch,
-  All,
-} from '../../src';
+import { Get, Post, Head, Put, Delete, Options, Patch, All } from '../../src/decorators/method';
+import { Controller } from '../../src/decorators/controller';
 import { Response, Request, Application } from 'express-serve-static-core';
 import { RoutingMethod } from '../../src/types';
+import { bootstrap } from '../../src';
 
 @Controller('/http')
 export class HttpMethodsController {

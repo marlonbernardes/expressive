@@ -1,6 +1,8 @@
 import express from 'express';
 import request from 'supertest';
-import { bootstrap, Controller, Route } from '../../src';
+import { bootstrap } from '../../src';
+import { Controller } from '../../src/decorators/controller';
+import { Route } from '../../src/decorators/method';
 import { Response, Request, Application } from 'express-serve-static-core';
 
 @Controller('/custom')

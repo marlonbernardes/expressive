@@ -1,19 +1,9 @@
 import express from 'express';
 import request from 'supertest';
-import {
-  bootstrap,
-  Get,
-  Controller,
-  Post,
-  Head,
-  Put,
-  Delete,
-  Options,
-  Patch,
-  All,
-} from '../../src';
+import { bootstrap } from '../../src';
+import { Controller } from '../../src/decorators/controller';
+import { Get, Post, Delete } from '../../src/decorators/method';
 import { Response, Request, Application } from 'express-serve-static-core';
-import { RoutingMethod } from '../../src/types';
 
 @Controller('/multiple')
 export class MultipleMethodDecorators {
