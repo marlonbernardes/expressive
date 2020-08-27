@@ -7,9 +7,10 @@ import {
 } from '../utils/reflection';
 
 export function Middleware(
-  middlewares: Middleware[]
+  val: Middleware | Middleware[]
 ): MethodDecorator & PropertyDecorator & ClassDecorator {
   return <T extends Function>(target: Object | T, methodName?: string | symbol): void => {
+    const middlewares = Array.isArray(val) ? val : [val];
     // if methodName is defined...
     if (methodName) {
       // ... it means this decorator is being applied to a property or method
