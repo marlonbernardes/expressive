@@ -9,11 +9,12 @@ import {
   NextFunction,
 } from 'express-serve-static-core';
 import { RouterOptions, Router } from 'express';
-import { Controller, ControllerMetadata, Route, ExpressRouter, MethodMetadata } from './types';
+import { Controller, ControllerMetadata, Route, ExpressRouter, MethodMetadata, WrapperFunction } from './types';
 import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
 
 type CreateOptions = {
   routerFactory: (opts?: RouterOptions) => Router;
+  globalWrapper?: WrapperFunction
 };
 
 type BootstrapOptions = CreateOptions & {
@@ -58,13 +59,13 @@ function createRouter(controller: Controller, options: CreateOptions): RouterCon
   ];
 
   controllerMetadata.middlewares.forEach((m) => router.use(m));
-  members.forEach((method) => registerMethod(router as ExpressRouter, controller, method));
+  members.forEach((method) => registerMethod(router as ExpressRouter, controller, method, options));
 
   controllerMetadata.errorMiddlewares.forEach((m) => router.use(m));
   return { basePath: controllerMetadata.basePath, router };
 }
 
-function registerMethod(router: ExpressRouter, controller: Controller, member: string): void {
+function registerMethod(router: ExpressRouter, controller: Controller, member: string, options: CreateOptions): void {
   const methodMeta: MethodMetadata = getMethodMetadata(controller.constructor, member);
   const controllerMeta: ControllerMetadata = getControllerMetadata(controller.constructor);
 
@@ -73,7 +74,9 @@ function registerMethod(router: ExpressRouter, controller: Controller, member: s
       return controller[member](req, res, next);
     };
 
-    // TODO: Add support for global wrapper
+    if (options.globalWrapper) {
+      callback = options.globalWrapper(callback);
+    }
 
     if (controllerMeta.wrapper) {
       callback = controllerMeta.wrapper(callback);
