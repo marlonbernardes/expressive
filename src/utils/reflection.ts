@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { MethodMetadata, ControllerMetadata } from '../types';
 
 const CONTROLLER_METADATA_KEY = Symbol('expressive:controller-metadata');
