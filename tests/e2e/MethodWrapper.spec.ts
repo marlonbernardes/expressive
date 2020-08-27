@@ -8,13 +8,12 @@ import { Request, Response, Application } from 'express-serve-static-core';
 const wrapper = (fn: any) => {
   return (req: any, res: any, next?: any) => {
     res.set('x-wrapped', 'true');
-    fn(req, res, next)
-  }
-}
+    fn(req, res, next);
+  };
+};
 
 @Controller('/class')
 export class WrapperController {
-
   @Wrapper(wrapper)
   @Get('/methodA')
   public methodA(req: Request, res: Response) {
@@ -23,7 +22,7 @@ export class WrapperController {
 
   @Get('/methodB')
   public methodB(req: Request, res: Response) {
-    res.send('methodB')
+    res.send('methodB');
   }
 }
 

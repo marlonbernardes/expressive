@@ -1,6 +1,6 @@
-import express  from 'express';
+import express from 'express';
 import request from 'supertest';
-import { bootstrap,  } from '../../src';
+import { bootstrap } from '../../src';
 import { Controller } from '../../src/decorators/controller';
 import { Middleware } from '../../src/decorators/middleware';
 import { Get } from '../../src/decorators/method';
@@ -8,24 +8,23 @@ import { Request, Response, Application } from 'express-serve-static-core';
 
 const firstMiddleware = () => {
   return (req: any, res: any, next?: any) => {
-    const header = res.get('x-executed') ?? ''
-    res.set('x-executed', [header, 'first'].filter(v => v).join(' | '))
+    const header = res.get('x-executed') ?? '';
+    res.set('x-executed', [header, 'first'].filter((v) => v).join(' | '));
     next && next();
-  }
-}
+  };
+};
 
 const secondMiddleware = () => {
   return (req: any, res: any, next?: any) => {
-    const header = res.get('x-executed') ?? ''
-    res.set('x-executed', [header, 'second'].filter(v => v).join(' | '))
+    const header = res.get('x-executed') ?? '';
+    res.set('x-executed', [header, 'second'].filter((v) => v).join(' | '));
     next && next();
-  }
-}
+  };
+};
 
 @Controller('/class')
 @Middleware([firstMiddleware()])
 export class SingleControllerMiddleware {
-
   @Get('/methodA')
   public methodA(req: Request, res: Response) {
     res.send('methodA');
@@ -59,7 +58,6 @@ describe('SingleControllerMiddleware - when the controller has one middleware', 
 @Controller('/class')
 @Middleware([firstMiddleware(), secondMiddleware()])
 export class MultipleControllerMiddlewares {
-
   @Get('/methodA')
   public methodA(req: Request, res: Response) {
     res.send('methodA');

@@ -9,12 +9,19 @@ import {
   NextFunction,
 } from 'express-serve-static-core';
 import { RouterOptions, Router } from 'express';
-import { Controller, ControllerMetadata, Route, ExpressRouter, MethodMetadata, WrapperFunction } from './types';
+import {
+  Controller,
+  ControllerMetadata,
+  Route,
+  ExpressRouter,
+  MethodMetadata,
+  WrapperFunction,
+} from './types';
 import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
 
 type CreateOptions = {
   routerFactory: (opts?: RouterOptions) => Router;
-  globalWrapper?: WrapperFunction
+  globalWrapper?: WrapperFunction;
 };
 
 type BootstrapOptions = CreateOptions & {
@@ -65,7 +72,12 @@ function createRouter(controller: Controller, options: CreateOptions): RouterCon
   return { basePath: controllerMetadata.basePath, router };
 }
 
-function registerMethod(router: ExpressRouter, controller: Controller, member: string, options: CreateOptions): void {
+function registerMethod(
+  router: ExpressRouter,
+  controller: Controller,
+  member: string,
+  options: CreateOptions
+): void {
   const methodMeta: MethodMetadata = getMethodMetadata(controller.constructor, member);
   const controllerMeta: ControllerMetadata = getControllerMetadata(controller.constructor);
 

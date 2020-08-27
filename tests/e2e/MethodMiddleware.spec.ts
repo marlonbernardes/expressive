@@ -8,23 +8,22 @@ import { Request, Response, Application } from 'express-serve-static-core';
 
 const firstMiddleware = () => {
   return (req: any, res: any, next?: any) => {
-    const header = res.get('x-executed') ?? ''
-    res.set('x-executed', [header, 'first'].filter(v => v).join(' | '))
+    const header = res.get('x-executed') ?? '';
+    res.set('x-executed', [header, 'first'].filter((v) => v).join(' | '));
     next && next();
-  }
-}
+  };
+};
 
 const secondMiddleware = () => {
   return (req: any, res: any, next?: any) => {
-    const header = res.get('x-executed') ?? ''
-    res.set('x-executed', [header, 'second'].filter(v => v).join(' | '))
+    const header = res.get('x-executed') ?? '';
+    res.set('x-executed', [header, 'second'].filter((v) => v).join(' | '));
     next && next();
-  }
-}
+  };
+};
 
 @Controller('/class')
 export class MethodMiddlewareController {
-
   @Get('/noMiddlewares')
   public noMiddlewares(req: Request, res: Response) {
     res.send('noMiddlewares');
