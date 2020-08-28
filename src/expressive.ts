@@ -3,7 +3,6 @@ import {
   Application,
   PathParams,
   RequestHandler,
-  ErrorRequestHandler,
   Request,
   Response,
   NextFunction,
@@ -98,28 +97,13 @@ function registerMethod(
       callback = methodMeta.wrapper(callback);
     }
 
-    if (methodMeta.errorMiddlewares) {
-      methodMeta.errorMiddlewares.forEach((errorMiddleware: ErrorRequestHandler) => {
-        callback = wrapErrorMiddleware(errorMiddleware, callback);
-      });
-    }
-
     methodMeta.routes.forEach((route: Route) => {
       const { verb, path }: Route = route;
-      router[verb](path, ...methodMeta.middlewares, callback);
+      router[verb](path,
+        ...methodMeta.middlewares,
+        callback,
+        ...methodMeta.errorMiddlewares
+      );
     });
   }
-}
-
-function wrapErrorMiddleware(
-  errorMiddleware: ErrorRequestHandler,
-  requestHandler: RequestHandler
-): RequestHandler {
-  return (req: Request, res: Response, next?: NextFunction): void => {
-    try {
-      requestHandler(req, res, next);
-    } catch (error) {
-      errorMiddleware(error, req, res, next!);
-    }
-  };
 }

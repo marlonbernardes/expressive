@@ -26,9 +26,10 @@ export function Middleware(
 }
 
 export function ErrorMiddleware(
-  errorMiddlewares: ErrorMiddleware[]
-): MethodDecorator & PropertyDecorator {
-  return (target: Object | Function, methodName?: string | symbol): void => {
+  val: ErrorMiddleware | ErrorMiddleware[]
+): MethodDecorator & PropertyDecorator & ClassDecorator {
+  return <T extends Function>(target: Object | T, methodName?: string | symbol): void => {
+    const errorMiddlewares = Array.isArray(val) ? val : [val];
     // if methodName is defined...
     if (methodName) {
       // ... it means this decorator is being applied to a property or method
