@@ -10,6 +10,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "postversion": "git push && git push --tags",
     "pretty": "prettier --write \"{src,tests}/**/*.ts\"",
     "test": "npm run test:express:4 && npm run test:express:next",
     "test:express:4": "npm install express@4 --no-save && jest",
