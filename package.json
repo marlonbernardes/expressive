@@ -10,18 +10,19 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "pretty": "prettier --write \"{src,tests}/**/*.ts\"",
-    "start": "ts-node src/index.ts",
-    "test": "jest"
+    "test": "npm run test:express:4 && npm run test:express:next",
+    "test:express:4": "npm install express@4 --no-save && jest",
+    "test:express:next": "npm install express@next --no-save && jest"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13"
   },
   "peerDependencies": {
-    "express": "^4.0.0"
+    "express": "^4.x || ^5.x"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^9.1.2",
+    "@commitlint/config-conventional": "^10.0.0",
     "@types/express": "^4.17.6",
     "@types/jest": "^26.0.10",
     "@types/supertest": "^2.0.10",
@@ -33,7 +34,6 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "express": "^4.17.1",
     "husky": "^4.2.5",
     "jest": "^26.4.0",
     "lint-staged": "^10.2.11",

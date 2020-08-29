@@ -5,19 +5,18 @@ using decorators.
 
 ### Installation
 
-Install `@bitmountain/expressive` and `express`.
+Install both `@bitmountain/expressive` and `express` (or `express@next` if you want to give express 5.x a try).
 
 ```sh
-yarn add @bitmountain/expressive express
+npm add @bitmountain/expressive express
 ```
 
-Expressive has been tested with express 4.x and 5.x (alpha).
-
+Expressive is compatible with express 4.x and express 5.x (alpha).
 
 ### Getting started
 
 ```ts
-import expressive from '@bitmountain/expressive';
+import bootstrap, { Controller, Get } from '@bitmountain/expressive';
 import express from 'express';
 
 @Controller('/hello')
