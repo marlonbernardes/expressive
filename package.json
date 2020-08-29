@@ -1,11 +1,12 @@
 {
   "name": "@bitmountain/expressive",
-  "version": "0.0.1-prerelease.1",
+  "version": "0.0.1-prerelease.2",
   "description": "Decorators for express apps",
   "main": "dist/index.js",
   "repository": "git@github.com:BitMountain/expressive.git",
   "author": "Marlon Bernardes <marlonjb.cb@gmail.com>",
   "license": "MIT",
+  "files": ["lib/**/*"],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
