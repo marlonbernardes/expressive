@@ -1,12 +1,5 @@
 import 'reflect-metadata';
-import {
-  Application,
-  RequestHandler,
-  Request,
-  Response,
-  NextFunction,
-} from 'express-serve-static-core';
-import { Router } from 'express';
+import { Router, Application, RequestHandler, Request, Response, NextFunction } from 'express';
 import {
   Controller,
   ControllerMetadata,
@@ -68,7 +61,7 @@ function registerMethod(
   const controllerMeta: ControllerMetadata = getControllerMetadata(controller.constructor);
 
   if (methodMeta.routes.length > 0) {
-    let callback = (req: Request, res: Response, next?: NextFunction): RequestHandler => {
+    let callback = (req: Request, res: Response, next: NextFunction): RequestHandler => {
       return controller[member](req, res, next);
     };
 
@@ -86,11 +79,7 @@ function registerMethod(
 
     methodMeta.routes.forEach((route: Route) => {
       const { verb, path }: Route = route;
-      router[verb](path,
-        ...methodMeta.middlewares,
-        callback,
-        ...methodMeta.errorMiddlewares
-      );
+      router[verb](path, ...methodMeta.middlewares, callback, ...methodMeta.errorMiddlewares);
     });
   }
 }

@@ -1,6 +1,5 @@
 import { RouterOptions } from 'express';
-import { PathParams } from 'express-serve-static-core';
-import { ControllerMetadata } from '../types';
+import { ControllerMetadata, PathParams } from '../types';
 import { normalisePath } from '../utils/path';
 import { getControllerMetadata, setControllerMetadata } from '../utils/reflection';
 

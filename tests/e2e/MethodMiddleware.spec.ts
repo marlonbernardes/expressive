@@ -1,10 +1,9 @@
-import express from 'express';
+import express, { Request, Response, Application } from 'express';
 import request from 'supertest';
 import { bootstrap } from '../../src';
 import { Controller } from '../../src/decorators/controller';
 import { Middleware } from '../../src/decorators/middleware';
 import { Get } from '../../src/decorators/method';
-import { Request, Response, Application } from 'express-serve-static-core';
 
 const firstMiddleware = () => {
   return (req: any, res: any, next?: any) => {

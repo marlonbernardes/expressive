@@ -27,6 +27,9 @@ rules:
   '@typescript-eslint/explicit-module-boundary-types': ['error']
   '@typescript-eslint/explicit-function-return-type': ['error']
   '@typescript-eslint/ban-types': off
+  '@typescript-eslint/no-unused-vars':
+    - 'error'
+    - argsIgnorePattern: '^_'
   'node/no-missing-import':
     - error
     - tryExtensions: ['.ts', '.js', '.json']

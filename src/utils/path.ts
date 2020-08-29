@@ -1,4 +1,4 @@
-import { PathParams } from 'express-serve-static-core';
+import { PathParams } from '../types';
 
 export function normalisePath<T extends PathParams>(path?: T): PathParams {
   if (!path) {

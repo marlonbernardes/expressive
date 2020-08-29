@@ -1,6 +1,5 @@
-import { RoutingMethod } from '../types';
+import { RoutingMethod, PathParams } from '../types';
 import { normalisePath } from '../utils/path';
-import { PathParams } from 'express-serve-static-core';
 import { getMethodMetadata, setMethodMetadata } from '../utils/reflection';
 
 type Decorator = MethodDecorator & PropertyDecorator;

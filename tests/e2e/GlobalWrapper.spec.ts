@@ -1,9 +1,8 @@
-import express, { NextFunction } from 'express';
+import express, { Request, Response, Application } from 'express';
 import request from 'supertest';
-import { bootstrap, Middleware, Wrapper } from '../../src';
+import { bootstrap } from '../../src';
 import { Controller } from '../../src/decorators/controller';
 import { Get } from '../../src/decorators/method';
-import { Request, Response, Application } from 'express-serve-static-core';
 
 const wrapper = (fn: any) => {
   return (req: any, res: any, next?: any) => {

@@ -1,18 +1,17 @@
-import express from 'express';
+import express, { Request, Response, Application } from 'express';
 import request from 'supertest';
 import { bootstrap, Wrapper } from '../../src';
 import { Controller } from '../../src/decorators/controller';
 import { ErrorMiddleware } from '../../src/decorators/middleware';
 import { Get } from '../../src/decorators/method';
-import { Request, Response, Application } from 'express-serve-static-core';
 
 const errorMiddleware = () => {
-  return (err: any, req: any, res: any, next: any) => {
+  return (err: any, _req: any, res: any, _next: any) => {
     const message = err.message ?? 'default error message';
     res.set('x-error', message);
     res.end();
   };
-}
+};
 
 const asyncWrapper = (cb: any) => {
   return async (req: any, res: any, next: any) => {
@@ -31,21 +30,21 @@ const delay = (ms = 100) => {
 @Controller('/class')
 export class MethodErrorMiddleware {
   @Get('/success')
-  public success(req: Request, res: Response) {
+  public success(_req: Request, res: Response) {
     res.send('methodA');
   }
 
   @Get('/error')
   @ErrorMiddleware(errorMiddleware())
-  public error(req: Request, res: Response) {
-    throw Error('error message')
+  public error(_req: Request, _res: Response) {
+    throw Error('error message');
   }
 
   @Get('/async-error')
   @ErrorMiddleware(errorMiddleware())
   // async wrapper is no longer needed for express >= 5.0.0.alpha8
   @Wrapper(asyncWrapper)
-  public async asyncError(req: Request, res: Response) {
+  public async asyncError(_req: Request, _res: Response) {
     await delay(100);
     throw Error('async error');
   }
@@ -76,4 +75,3 @@ describe('MethodErrorMiddleware', () => {
     expect(response.get('x-error')).toEqual('async error');
   });
 });
-

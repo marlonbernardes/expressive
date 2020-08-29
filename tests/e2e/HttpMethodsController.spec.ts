@@ -1,8 +1,7 @@
-import express from 'express';
+import express, { Response, Request, Application } from 'express';
 import request from 'supertest';
 import { Get, Post, Head, Put, Delete, Options, Patch, All } from '../../src/decorators/method';
 import { Controller } from '../../src/decorators/controller';
-import { Response, Request, Application } from 'express-serve-static-core';
 import { RoutingMethod } from '../../src/types';
 import { bootstrap } from '../../src';
 

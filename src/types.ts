@@ -1,11 +1,12 @@
-import { RouterOptions, Router } from 'express';
 import {
-  PathParams,
+  RouterOptions,
+  Router,
   RequestHandler,
   ErrorRequestHandler,
   IRouterMatcher,
-} from 'express-serve-static-core';
+} from 'express';
 
+export type PathParams = string | RegExp | Array<string | RegExp>;
 export type Controller = any;
 export type Middleware = RequestHandler;
 export type ErrorMiddleware = ErrorRequestHandler;
