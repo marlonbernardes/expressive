@@ -1,36 +1,23 @@
 import 'reflect-metadata';
 import {
   Application,
-  PathParams,
   RequestHandler,
   Request,
   Response,
   NextFunction,
 } from 'express-serve-static-core';
-import { RouterOptions, Router } from 'express';
+import { Router } from 'express';
 import {
   Controller,
   ControllerMetadata,
   Route,
   ExpressRouter,
   MethodMetadata,
-  WrapperFunction,
+  CreateOptions,
+  RouterConfig,
+  BootstrapOptions,
 } from './types';
 import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
-
-type CreateOptions = {
-  routerFactory: (opts?: RouterOptions) => Router;
-  globalWrapper?: WrapperFunction;
-};
-
-type BootstrapOptions = CreateOptions & {
-  globalMiddlewares: RequestHandler[];
-};
-
-type RouterConfig = {
-  basePath: PathParams;
-  router: Router;
-};
 
 export function create(
   controllers: Controller[],
@@ -66,8 +53,8 @@ function createRouter(controller: Controller, options: CreateOptions): RouterCon
 
   controllerMetadata.middlewares.forEach((m) => router.use(m));
   members.forEach((method) => registerMethod(router as ExpressRouter, controller, method, options));
-
   controllerMetadata.errorMiddlewares.forEach((m) => router.use(m));
+
   return { basePath: controllerMetadata.basePath, router };
 }
 

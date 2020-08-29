@@ -1,10 +1,9 @@
-import { RouterOptions, IRouter } from 'express';
+import { RouterOptions, Router } from 'express';
 import {
   PathParams,
   RequestHandler,
   ErrorRequestHandler,
   IRouterMatcher,
-  IRouterHandler,
 } from 'express-serve-static-core';
 
 export type Controller = any;
@@ -14,6 +13,20 @@ export type WrapperFunction = (handler?: RequestHandler) => RequestHandler;
 export interface Type<T> extends Function {
   new (...args: unknown[]): T;
 }
+
+export type CreateOptions = {
+  routerFactory: (opts?: RouterOptions) => Router;
+  globalWrapper?: WrapperFunction;
+};
+
+export type BootstrapOptions = CreateOptions & {
+  globalMiddlewares: RequestHandler[];
+};
+
+export type RouterConfig = {
+  basePath: PathParams;
+  router: Router;
+};
 
 type RouteMetadata = {
   errorMiddlewares: ErrorMiddleware[];
@@ -35,9 +48,9 @@ export interface Route {
   path: PathParams;
 }
 
-export type ExpressRouter = IRouter &
+export type ExpressRouter = Router &
   {
-    [verb in RoutingMethod]: IRouterMatcher<IRouter>;
+    [verb in RoutingMethod]: IRouterMatcher<Router>;
   };
 
 // Routing methods supported by express:
