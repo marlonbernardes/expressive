@@ -8,7 +8,7 @@ using decorators.
 Install both `@bitmountain/expressive` and `express` (or `express@next` if you want to give express 5.x a try).
 
 ```sh
-npm add @bitmountain/expressive express
+npm install @bitmountain/expressive express
 ```
 
 Expressive is compatible with express 4.x and express 5.x (alpha).

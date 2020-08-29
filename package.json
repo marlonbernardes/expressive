@@ -1,5 +1,5 @@
 {
-  "name": "expressive",
+  "name": "@bitmountain/expressive",
   "version": "0.0.1-prerelease.1",
   "description": "Decorators for express apps",
   "main": "dist/index.js",
