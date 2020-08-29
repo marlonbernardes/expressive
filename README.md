@@ -8,7 +8,7 @@ using decorators.
 Install `@bitmountain/expressive` and `express`.
 
 ```sh
-yarn add expressive express
+yarn add @bitmountain/expressive express
 ```
 
 Expressive has been tested with express 4.x and 5.x (alpha).
@@ -45,7 +45,7 @@ app.listen(3000);
 |----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------  |
 | `@Controller(basePath: string, options?: RouterOptions)` | Allow classes to group methods/endpoints under a common base path. An express [RouterOptions](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0d9e09b48c0b6ed03299163d78db1b87f97fa448/types/express/index.d.ts#L74-L93) object can also be provided with additional configuration | Classes                   |
 | `@Router(basePath: string, options: RouterOptions)`      | Alias for `@Controller`                                                                                                                                                                                                                                                                    | Classes                   |
-| `@Get/@Post/@Put/@Delete/@Options/@Patch/@Head(path: string \| RegExp \| string[] \| RegExp[])` | Used to convert a class method/property to an express route for serving requests matching the equivalent HTTP Verb.                                                                                                                                                                                                       | Methods or properties  |
+| `@Get/@Post/@Put/@Delete/@Options/@Patch/@Head(path: string \| RegExp \| string[] \| RegExp[])` | Used to convert a class method/property to an express route for serving requests matching the equivalent HTTP Verb.                                                                                                                                 | Methods   |
 | `@Route(verb: string, path: string \| RegExp \| string[] \| RegExp[])` | Same as above, but allows you to manually specify the http verb you want to use. | Methods |
 | `@All(path: string \| RegExp \| string[] \| RegExp[])` | Same as above, but matches all http verbs (see [express.all()](https://expressjs.com/en/api.html#app.all)) | Methods |
 | `@Middleware(RequestHandler \| RequestHandler[])`         | Used to apply one or more middlewares to a method or a class. Middlewares applied to classes will be invoked for each method of the class. | Classes and methods  |
@@ -64,7 +64,7 @@ registers them in the given express app.
 {
 
   // array of middlewares which will be applied to all routes
-  // middlewares can also be specified at a controller/method level
+  // middlewares can also be specified at a class/method level
   // using the @Middleware decorator
   globalMiddlewares?: []
 
@@ -193,12 +193,10 @@ express.bootstrap(app, [new UsersController()]);
 
 // alternatively, you can get rid of the @Wrapper decorator above
 // and apply it to all controllers at once:
-//express.bootstrap(app, [new UsersController()], {
+// express.bootstrap(app, [new UsersController()], {
 //  globalWrapper: asyncHandler
 //});
 ```
-
-**Manually registering routers**
 
 ### FAQ
 
@@ -240,12 +238,12 @@ public loadById(req: Request, res: Response) {
 
 If using express 5.x (in alpha as of this writing) you don't have to do anything,
 as async routes are automatically handled by express. If using express <= 4.x you need to
-either add a try/catch block around your async methods or use an async wrapper. You can
+either add a try/catch block around your async methods (and call `next()` accordingly) or use an async wrapper. You can
 write your own async wrapper in a few lines of code or use a library such as `express-async-handler`.
 
 There's one example above in this documentation that covers how to use an async wrapper.
 
-### Why expressive
+### Why expressive?
 
 - Simpler: there are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but
 they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers.
