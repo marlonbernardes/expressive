@@ -35,3 +35,6 @@ export const setControllerMetadata = <T extends Function>(
 ): void => {
   Reflect.defineMetadata(CONTROLLER_METADATA_KEY, value, constructor);
 };
+
+export const hasControllerMetadata = <T extends Function>(constructor: T): boolean =>
+  Reflect.hasMetadata(CONTROLLER_METADATA_KEY, constructor);
