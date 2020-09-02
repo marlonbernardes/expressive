@@ -5,16 +5,22 @@
   "main": "lib/index.js",
   "repository": "git@github.com:BitMountain/expressive.git",
   "author": "Marlon Bernardes <marlonjb.cb@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
-  "files": ["lib/**/*"],
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
     "postversion": "git push && git push --tags",
     "pretty": "prettier --write \"{src,tests}/**/*.ts\"",
+    "release": "release-it",
     "test": "npm run test:express:4 && npm run test:express:next",
     "test:express:4": "npm install express@4 --no-save && jest",
     "test:express:next": "npm install express@next --no-save && jest",
@@ -29,6 +35,7 @@
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^10.0.0",
+    "@release-it/conventional-changelog": "^1.1.4",
     "@types/express": "^4.17.6",
     "@types/jest": "^26.0.10",
     "@types/supertest": "^2.0.10",
@@ -44,6 +51,7 @@
     "jest": "^26.4.0",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
+    "release-it": "^13.7.0",
     "supertest": "^4.0.2",
     "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
@@ -62,5 +70,19 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
   }
 }
