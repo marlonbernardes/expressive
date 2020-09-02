@@ -72,6 +72,9 @@
     ]
   },
   "release-it": {
+    "hooks": {
+      "before:init": ["npm test", "npm run lint"]
+    },
     "git": {
       "commitMessage": "chore: release v${version}"
     },
