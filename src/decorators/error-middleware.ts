@@ -1,11 +1,10 @@
-import{ ErrorMiddleware, MethodMetadata, ControllerMetadata } from '../types';
+import { ErrorMiddleware, MethodMetadata, ControllerMetadata } from '../types';
 import {
   getMethodMetadata,
   setMethodMetadata,
   getControllerMetadata,
   setControllerMetadata,
 } from '../utils/reflection';
-
 
 export function ErrorMiddleware(
   val: ErrorMiddleware | ErrorMiddleware[]
