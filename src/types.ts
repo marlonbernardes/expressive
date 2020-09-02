@@ -29,7 +29,7 @@ export type RouterConfig = {
   router: Router;
 };
 
-type RouteMetadata = {
+export type RouteMetadata = {
   errorMiddlewares: ErrorMiddleware[];
   middlewares: Middleware[];
   wrapper?: WrapperFunction;

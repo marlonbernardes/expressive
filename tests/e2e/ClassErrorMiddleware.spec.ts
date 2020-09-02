@@ -2,7 +2,7 @@ import express, { Request, Response, Application } from 'express';
 import request from 'supertest';
 import { bootstrap, Wrapper } from '../../src';
 import { Controller } from '../../src/decorators/controller';
-import { ErrorMiddleware } from '../../src/decorators/middleware';
+import { ErrorMiddleware } from '../../src/decorators/error-middleware';
 import { Get } from '../../src/decorators/method';
 
 const errorMiddleware = () => {
