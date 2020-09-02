@@ -244,12 +244,8 @@ There's one example above in this documentation that covers how to use an async 
 
 ### Why expressive?
 
-- Simpler: there are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but
-they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers.
-- Unopinionated: you take care of creating your express app and server. Expressive
-just provides syntactic sugar so you can create and register the routers in a more elegant way.
-- Almost no external dependencies (technically it only depends directly on `reflect-metadata`). The whole
-codebase (excluding tests) has less than 300 lines of code.
+- There are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers. Expressive just provides syntactic sugar so you can create and register the routers in a more elegant way.
+- Almost no external dependencies (technically it only depends directly on `reflect-metadata`). The whole codebase (excluding tests) has less than 300 lines of code.
 - Can be gradually adopted: you can use it only for parts of your api, if you desire.
 
 
