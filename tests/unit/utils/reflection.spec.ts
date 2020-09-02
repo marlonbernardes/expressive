@@ -4,8 +4,8 @@ import {
   setMethodMetadata,
   getMethodMetadata,
   hasControllerMetadata,
-} from '../../src/utils/reflection';
-import { RoutingMethod } from '../../src/types';
+} from '../../../src/utils/reflection';
+import { RoutingMethod } from '../../../src/types';
 
 describe('controller metadata', () => {
   class FirstController {}

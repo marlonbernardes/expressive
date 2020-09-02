@@ -10,14 +10,41 @@ import {
   RouterConfig,
   BootstrapOptions,
 } from './types';
-import { getControllerMetadata, getMethodMetadata } from './utils/reflection';
+import {
+  getControllerMetadata,
+  getMethodMetadata,
+  hasControllerMetadata,
+} from './utils/reflection';
+import { checkArgument } from './utils/preconditions';
 
 export function create(
   controllers: Controller[],
   options?: Partial<CreateOptions>
 ): RouterConfig[] {
+  validateControllers(controllers);
   const defaults = { routerFactory: Router };
   return controllers.map((ctrl) => createRouter(ctrl, { ...defaults, ...options }));
+}
+
+function validateControllers(controllers: Controller[]): void {
+  checkArgument(
+    !!controllers,
+    `Expected an array of @Controller()/@Router() instances, but got '${controllers}' instead.`
+  );
+  const isValidController = (c: Controller): boolean =>
+    c?.constructor && hasControllerMetadata(c.constructor);
+  for (const c of controllers) {
+    checkArgument(
+      isValidController(c),
+      `One or more controllers instances do not have metadata associated with them.
+        Check if:
+          - all elements in the controllers array are instantiated (e.g [new MyController()] instead of [MyController])
+          - all elements in the controllers array are annotated with @Controller (or @Router).
+        Offending controller:
+          ${c}
+    `
+    );
+  }
 }
 
 export function bootstrap(

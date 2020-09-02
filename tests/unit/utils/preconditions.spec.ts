@@ -1,4 +1,4 @@
-import { checkArgument } from '../../src/utils/preconditions';
+import { checkArgument } from '../../../src/utils/preconditions';
 
 describe('#checkArgument', () => {
   describe('when the input is falsy', () => {

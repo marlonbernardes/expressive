@@ -1,4 +1,4 @@
-import { normalisePath } from '../../src/utils/path';
+import { normalisePath } from '../../../src/utils/path';
 
 describe('#normalisePath', () => {
   describe('when the input is falsy', () => {
