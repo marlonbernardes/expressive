@@ -17,7 +17,8 @@
     "pretty": "prettier --write \"{src,tests}/**/*.ts\"",
     "test": "npm run test:express:4 && npm run test:express:next",
     "test:express:4": "npm install express@4 --no-save && jest",
-    "test:express:next": "npm install express@next --no-save && jest"
+    "test:express:next": "npm install express@next --no-save && jest",
+    "test:watch": "npm install express@4 --no-save && jest --coverage=false --watch"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13"
