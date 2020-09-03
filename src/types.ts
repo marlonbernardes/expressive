@@ -11,7 +11,7 @@ export type ParamsDictionary = { [key: string]: string };
 export type Controller = any;
 export type Middleware<T extends ParamsDictionary> = RequestHandler<T>;
 export type ErrorMiddleware = ErrorRequestHandler;
-export type WrapperFunction = (handler?: RequestHandler<any>) => RequestHandler;
+export type WrapperFunction = (handler: RequestHandler<any>) => RequestHandler;
 export interface Type<T> extends Function {
   new (...args: unknown[]): T;
 }
