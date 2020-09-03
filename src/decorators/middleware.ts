@@ -1,4 +1,4 @@
-import { Middleware, MethodMetadata, ControllerMetadata } from '../types';
+import { Middleware, MethodMetadata, ControllerMetadata, ParamsDictionary } from '../types';
 import {
   getMethodMetadata,
   setMethodMetadata,
@@ -6,8 +6,8 @@ import {
   setControllerMetadata,
 } from '../utils/reflection';
 
-export function Middleware(
-  val: Middleware | Middleware[]
+export function Middleware<T extends ParamsDictionary> (
+  val: Middleware<T> | Middleware<T>[]
 ): MethodDecorator & PropertyDecorator & ClassDecorator {
   return <T extends Function>(target: Object | T, methodName?: string | symbol): void => {
     const middlewares = Array.isArray(val) ? val : [val];

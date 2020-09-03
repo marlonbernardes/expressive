@@ -7,10 +7,11 @@ import {
 } from 'express';
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
+export type ParamsDictionary = { [key: string]: string };
 export type Controller = any;
-export type Middleware = RequestHandler;
+export type Middleware<T extends ParamsDictionary> = RequestHandler<T>;
 export type ErrorMiddleware = ErrorRequestHandler;
-export type WrapperFunction = (handler?: RequestHandler) => RequestHandler;
+export type WrapperFunction = (handler?: RequestHandler<any>) => RequestHandler;
 export interface Type<T> extends Function {
   new (...args: unknown[]): T;
 }
@@ -31,7 +32,7 @@ export type RouterConfig = {
 
 export type RouteMetadata = {
   errorMiddlewares: ErrorMiddleware[];
-  middlewares: Middleware[];
+  middlewares: Middleware<any>[];
   wrapper?: WrapperFunction;
 };
 
