@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/BitMountain/expressive/compare/1.0.0...1.0.1) (2020-09-03)
+
+
+### Bug Fixes
+
+* specify generic types for Middleware and WrapperFunction ([3da1cff](https://github.com/BitMountain/expressive/commit/3da1cffcffd2d78f4e6e83db1d749790b583f2d8))
+
 # 1.0.0 (2020-09-02)
 
 ### Bug Fixes
