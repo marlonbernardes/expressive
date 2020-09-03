@@ -1,6 +1,6 @@
 {
   "name": "@bitmountain/expressive",
-  "version": "1.0.1",
+  "version": "1.0.2-beta.0",
   "description": "Simple, flexible and lightweight library for creating express routers using decorators.",
   "main": "lib/index.js",
   "repository": "git@github.com:BitMountain/expressive.git",

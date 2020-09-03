@@ -1,3 +1,10 @@
+## [1.0.2-beta.0](https://github.com/BitMountain/expressive/compare/1.0.1...1.0.2-beta.0) (2020-09-03)
+
+
+### Bug Fixes
+
+* update types for WrapperFunction, so handler is not optional ([6cf79c1](https://github.com/BitMountain/expressive/commit/6cf79c168cec72ed2cdaa6281423a267da3cae68))
+
 ## [1.0.1](https://github.com/BitMountain/expressive/compare/1.0.0...1.0.1) (2020-09-03)
 
 
