@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,5 +21,5 @@ jobs:
     - run: npm run lint
     - uses: codecov/codecov-action@v1
       with:
-        file: ./coverage.xml
+        file: ./coverage/clover.xml
         fail_ci_if_error: true
