@@ -17,7 +17,9 @@ export function Middleware<T extends ParamsDictionary> (
       const metadata: MethodMetadata = getMethodMetadata(target.constructor, methodName);
       metadata.middlewares = [...middlewares, ...metadata.middlewares];
       setMethodMetadata(target.constructor, methodName, metadata);
-    } else if (typeof target === 'function') {
+    }
+
+    if (typeof target === 'function') {
       const metadata: ControllerMetadata = getControllerMetadata(target);
       metadata.middlewares = [...middlewares, ...metadata.middlewares];
       setControllerMetadata(target, metadata);

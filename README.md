@@ -10,11 +10,13 @@ using decorators.
 
 ### Features
 
-- Create Routers using `@Controller` or `@Router` decorators in a class
+- Create routers using `@Controller` (or its alias, `@Router`) in a class.
+- Define endpoints by annotating methods with `@Get`, `@Post`, `@Put`, `@Delete`, `@All`, etc. More obscure http methods can be used via `@Route(<http-method>, <path>)`
 - Define class or method-level middlewares using `@Middleware`
 - Optionally wrap your methods using `@Wrapper`: which makes it ideal for handling async methods!
 - Provides aliases for most commonly used http methods (e.g `Get, @Post, @Put, etc`) and also allows custom http methods to be used via `@Route(<verb>)`
-- Lightweight: depends directly only on `reflect-metadata` and the codebase has around 200 lines of code!
+- Lightweight: depends directly only on `reflect-metadata` and the codebase has around 250 lines of code!
+- Can be gradually adopted: you can use it only for parts of your api, if you desire.
 
 ### Installation
 
@@ -226,8 +228,7 @@ express.bootstrap(app, [new UsersController()]);
 
 **- In what order are routes matched?**
 
-If a request match 2 different routes, only the first matched route (a.k.a the
-one the appears first in the class) will be executed. This matches express' behaviours, where
+If a request match 2 different routes, only the first matched route (the one the appears first in the class) will be executed. This matches express' behaviours, where
 the first route always takes priority. As an example:
 
 ```ts
@@ -270,9 +271,6 @@ There's one example above in this documentation that covers how to use an async 
 ### Why expressive?
 
 - There are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers. Expressive just provides syntactic sugar so you can create and register the routers in a more elegant way.
-- Almost no external dependencies (technically it only depends directly on `reflect-metadata`). The whole codebase (excluding tests) has less than 300 lines of code.
-- Can be gradually adopted: you can use it only for parts of your api, if you desire.
-
 
 ### License
 

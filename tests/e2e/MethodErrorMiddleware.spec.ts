@@ -41,7 +41,7 @@ export class MethodErrorMiddleware {
   }
 
   @Get('/async-error')
-  @ErrorMiddleware(errorMiddleware())
+  @ErrorMiddleware([errorMiddleware()])
   // async wrapper is no longer needed for express >= 5.0.0.alpha8
   @Wrapper(asyncWrapper)
   public async asyncError(_req: Request, _res: Response) {

@@ -14,7 +14,9 @@ export function Wrapper(
       const metadata: MethodMetadata = getMethodMetadata(target.constructor, methodName);
       metadata.wrapper = wrapper;
       setMethodMetadata(target.constructor, methodName, metadata);
-    } else if (typeof target === 'function') {
+    }
+
+    if (typeof target === 'function') {
       const metadata: ControllerMetadata = getControllerMetadata(target);
       metadata.wrapper = wrapper;
       setControllerMetadata(target, metadata);
