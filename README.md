@@ -3,7 +3,10 @@
 Simple, flexible and lightweight library for creating express routers
 using decorators.
 
-![expressive-demo](https://user-images.githubusercontent.com/2975955/92332691-95030900-f077-11ea-840b-82e7ed8ff16a.gif)
+[![npm version](https://badge.fury.io/js/%40bitmountain%2Fexpressive.svg)](https://www.npmjs.com/package/@bitmountain/expressive)
+[![codecov](https://codecov.io/gh/BitMountain/expressive/branch/main/graph/badge.svg)](https://codecov.io/gh/BitMountain/expressive)
+
+### Features
 
 - Create Routers using `@Controller` or `@Router` decorators in a class
 - Define class or method-level middlewares using `@Middleware`
