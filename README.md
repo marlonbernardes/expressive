@@ -6,6 +6,8 @@ using decorators.
 [![npm version](https://badge.fury.io/js/%40bitmountain%2Fexpressive.svg)](https://www.npmjs.com/package/@bitmountain/expressive)
 [![codecov](https://codecov.io/gh/BitMountain/expressive/branch/main/graph/badge.svg)](https://codecov.io/gh/BitMountain/expressive)
 
+![demo](https://user-images.githubusercontent.com/2975955/92334361-f7163b00-f084-11ea-9ced-847db66d230d.gif)
+
 ### Features
 
 - Create Routers using `@Controller` or `@Router` decorators in a class
