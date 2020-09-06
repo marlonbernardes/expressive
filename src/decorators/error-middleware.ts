@@ -17,7 +17,9 @@ export function ErrorMiddleware(
       const metadata: MethodMetadata = getMethodMetadata(target.constructor, methodName);
       metadata.errorMiddlewares = [...errorMiddlewares, ...metadata.errorMiddlewares];
       setMethodMetadata(target.constructor, methodName, metadata);
-    } else if (typeof target === 'function') {
+    }
+
+    if (typeof target === 'function') {
       const metadata: ControllerMetadata = getControllerMetadata(target);
       metadata.errorMiddlewares = [...errorMiddlewares, ...metadata.errorMiddlewares];
       setControllerMetadata(target, metadata);
