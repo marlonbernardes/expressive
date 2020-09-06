@@ -1,7 +1,15 @@
-# Expressive
+# 🚀 Expressive
 
 Simple, flexible and lightweight library for creating express routers
 using decorators.
+
+![expressive-demo](https://user-images.githubusercontent.com/2975955/92332691-95030900-f077-11ea-840b-82e7ed8ff16a.gif)
+
+- Create Routers using `@Controller` or `@Router` decorators in a class
+- Define class or method-level middlewares using `@Middleware`
+- Optionally wrap your methods using `@Wrapper`: which makes it ideal for handling async methods!
+- Provides aliases for most commonly used http methods (e.g `Get, @Post, @Put, etc`) and also allows custom http methods to be used via `@Route(<verb>)`
+- Lightweight: depends directly only on `reflect-metadata` and the codebase has around 200 lines of code!
 
 ### Installation
 
@@ -12,6 +20,18 @@ npm install @bitmountain/expressive express
 ```
 
 Expressive is compatible with express 4.x and express 5.x (alpha).
+
+Note that this library make heavy use of decorators - so make sure you have them enabled in your TypeScript settings:
+
+```json5
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    // other compiler options
+  }
+}
+```
 
 ### Getting started
 
