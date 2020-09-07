@@ -1,9 +1,10 @@
 ## [1.0.3](https://github.com/BitMountain/expressive/compare/1.0.2...1.0.3) (2020-09-06)
 
-## [1.0.2](https://github.com/BitMountain/expressive/compare/1.0.2-beta.0...1.0.2) (2020-09-03)
+### Misc
 
-## [1.0.2-beta.0](https://github.com/BitMountain/expressive/compare/1.0.1...1.0.2-beta.0) (2020-09-03)
+* Documentation changes
 
+## [1.0.2](https://github.com/BitMountain/expressive/compare/1.0.1...1.0.2) (2020-09-03)
 
 ### Bug Fixes
 
