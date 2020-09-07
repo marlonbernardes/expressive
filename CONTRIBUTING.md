@@ -1,6 +1,7 @@
 # Contribution Guidelines
 
 First of all, thanks for thinking of contributing to this project! 👏
+
 This page was heavily inspired by [release-it contribution guide](https://github.com/release-it/release-it/blob/master/.github/CONTRIBUTING.md).
 
 Following these guidelines helps to communicate that you respect the time of the maintainer and developing this open
