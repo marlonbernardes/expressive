@@ -94,7 +94,7 @@ registers them in the given express app.
   // using the @Middleware decorator.
   globalMiddlewares?: []
 
-  // Wwrapper function which will "wrap" each one of the routes.
+  // Wrapper function which will "wrap" each one of the routes.
   // Wrappers can also be specified at a class/method level using the
   // @Wrapper decorator.
   globalWrapper?: (fn) => (req, res, next) => fn(req, res, next)
