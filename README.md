@@ -272,6 +272,14 @@ There's one example above in this documentation that covers how to use an async 
 
 - There are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers. Expressive just provides decorators so you can create and register the routers in a more elegant way.
 
+### Contributing
+
+→ See [Contribution Guidelines](./CONTRIBUTING.md) for more details.
+
+### Code of Conduct
+
+→ See [Code of Conduct](./CODE_OF_CONDUCT.md) for more details.
+
 ### License
 
 [MIT](./LICENSE)
