@@ -46,19 +46,16 @@ Pull requests are welcome! If you never created a pull request before, here are 
 
 Please keep the following in mind:
 
-- To match the existing code styling, use `npm run format` before committing code.
+- To match the existing code styling, use `npm run pretty` before committing code.
 - Make sure the tests pass (run `npm test`). Your changes probably deserve new tests as well.
-- Remember that this project is cross-platform compatible (macOS, Windows, Linux), and that it runs in different
-  versions of Node. On PR submission, a [GitHub Action](https://github.com/release-it/release-it/actions) will run the
-  tests in multiple supported platforms and Node.js versions.
 
 Unsure about whether you should open a pull request? Feel free to discuss it first in a ticket.
 
 [Fork](https://help.github.com/articles/fork-a-repo/) the repository to get started, and set it up on your machine:
 
 ```bash
-git clone https://github.com/<your-github-username>/release-it
-cd release-it
+git clone https://github.com/<your-github-username>/expressive
+cd expressive
 npm install
 ```
 
@@ -66,14 +63,4 @@ Verify the tests are passing:
 
 ```bash
 npm test
-```
-
-To use your modified version of release-it in your project, [npm-link](https://docs.npmjs.com/cli/link.html) it:
-
-```bash
-# From your release-it clone:
-npm link
-
-# From your project that uses release-it:
-npm link release-it
 ```
