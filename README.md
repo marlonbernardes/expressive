@@ -11,9 +11,9 @@ using decorators.
 ### Features
 
 - Create routers using `@Controller` (or its alias, `@Router`) in a class.
-- Define endpoints by annotating methods with `@Get`, `@Post`, `@Put`, `@Delete`, `@All`, etc. More obscure http methods can be used via `@Route(<http-method>, <path>)`
+- Define endpoints by decorating methods with `@Get`, `@Post`, `@Put`, `@Delete`, `@All`, etc. More obscure http methods can be used via `@Route(<http-method>, <path>)`
 - Define class or method-level middlewares using `@Middleware`
-- Optionally wrap your methods using `@Wrapper`: which makes it ideal for handling async methods!
+- Optionally wrap your methods using `@Wrapper` - ideal for handling errors in async methods!
 - Provides aliases for most commonly used http methods (e.g `Get, @Post, @Put, etc`) and also allows custom http methods to be used via `@Route(<verb>)`
 - Lightweight: depends directly only on `reflect-metadata` and the codebase has around 250 lines of code!
 - Can be gradually adopted: you can use it only for parts of your api, if you desire.
@@ -89,20 +89,20 @@ registers them in the given express app.
 ```ts
 {
 
-  // array of middlewares which will be applied to all routes
-  // middlewares can also be specified at a class/method level
-  // using the @Middleware decorator
+  // Array of middlewares which will be applied to all routes.
+  // Middlewares can also be specified at a class/method level
+  // using the @Middleware decorator.
   globalMiddlewares?: []
 
-  // wrapper function which will "wrap" each one of the routes
-  // wrappers can also be specified at a class/method level using the
-  // @Wrapper decorator
+  // Wwrapper function which will "wrap" each one of the routes.
+  // Wrappers can also be specified at a class/method level using the
+  // @Wrapper decorator.
   globalWrapper?: (fn) => (req, res, next) => fn(req, res, next)
 
-  // by default, expressive uses express.Router(opts) to construct
+  // By default, expressive uses express.Router(opts) to construct
   // router instances (where the "opts" variable is optionally provided
   // via the @Controller decorator. You can use this variable if you want
-  // expressive to use a custom router
+  // expressive to use a custom router.
   routerFactory: (opts?: RouterOptions) => Router;
 }
 ```
@@ -124,15 +124,15 @@ cfgs.forEach(cfg => app.use(cfg.basePath, cfg.router));
 ```ts
 {
 
-  // wrapper function which will "wrap" each one of the routes
-  // wrappers can also be specified at a class/method level using the
+  // Wrapper function which will "wrap" each one of the routes.
+  // Wrappers can also be specified at a class/method level using the
   // @Wrapper decorator
   globalWrapper?: (fn) => (req, res, next) => fn(req, res, next)
 
-  // by default, expressive uses express.Router(opts) to construct
+  // By default, expressive uses express.Router(opts) to construct
   // router instances (where the "opts" variable is optionally provided
   // via the @Controller decorator. You can use this variable if you want
-  // expressive to use a custom router
+  // expressive to use a custom router.
   routerFactory: (opts?: RouterOptions) => Router;
 }
 ```
@@ -184,8 +184,8 @@ export class ProjectsController {  /* methods here */ }
 
 const app = express();
 expressive.bootstrap(app, [new UsersController(), new ProjectsController()], {
-  // the middleware below will be added to all methods in all controllers registered above
-  // you can also add middlewares at controller or method level using the @Middleware decorator
+  // The middleware below will be added to all methods in all controllers registered above.
+  // You can also add middlewares at controller or method level using the @Middleware decorator.
   globalMiddlewares: [loggingMiddleware()]
 })
 ```
@@ -270,7 +270,7 @@ There's one example above in this documentation that covers how to use an async 
 
 ### Why expressive?
 
-- There are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers. Expressive just provides syntactic sugar so you can create and register the routers in a more elegant way.
+- There are other libraries/frameworks out there that serve a similar purpose (NestJS, tsed, Overnight, inversify-express-utils), but they either have a much steeper learning curve or they are too opinionated in the way you create your app and controllers. Expressive just provides decorators so you can create and register the routers in a more elegant way.
 
 ### License
 
