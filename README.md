@@ -5,7 +5,7 @@ using decorators.
 
 [![npm version](https://badge.fury.io/js/%40bitmountain%2Fexpressive.svg)](https://www.npmjs.com/package/@bitmountain/expressive)
 [![codecov](https://codecov.io/gh/BitMountain/expressive/branch/main/graph/badge.svg)](https://codecov.io/gh/BitMountain/expressive)
-[![build](https://github.com/BitMountain/expressive/workflows/build/badge.svg)](https://github.com/BitMountain/expressive/actions?query=workflow%3Abuild)
+[![build](https://github.com/BitMountain/expressive/workflows/build/badge.svg?branch=main)](https://github.com/BitMountain/expressive/actions?query=workflow%3Abuild)
 
 ![demo](https://user-images.githubusercontent.com/2975955/92334361-f7163b00-f084-11ea-9ced-847db66d230d.gif)
 
